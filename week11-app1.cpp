@@ -107,7 +107,7 @@ auto higher_than_(const auto& item, const auto& threshold) {
 }
 
 auto higher_than(const auto& threshold) {
-    return [=](const auto& item, const auto& threshold) {
+    return [=](const auto& item) {
         return higher_than_(item, threshold);
     };
 }
@@ -117,7 +117,7 @@ auto less_than_(const auto& item, const auto& threshold) {
 }
 
 auto less_than(const auto& threshold) {
-    return [=](const auto& item, const auto& threshold) {
+    return [=](const auto& item) {
         return less_than_(item, threshold);
     };
 }
@@ -140,9 +140,10 @@ int main(int, char* [])
 
     CONTAINER{1.1, 50.3, -3, 5, 10, 100}
         | PRINT()
-        | reverse() | PRINT()
-        | filter([](auto item) { return item > 10; })
-        | filter(all_of(higher_than(0), less_than(60)));
+        | reverse()
+        | PRINT()
+        | filter(all_of(higher_than(0), less_than(60)))
+        | PRINT();
         // | take<2>() | PRINT
         // | transform(add(2)) | PRINT
         // | accumulate(1, multiplier) | PRINT;
